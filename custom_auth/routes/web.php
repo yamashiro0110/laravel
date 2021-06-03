@@ -20,3 +20,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/sample/token/auth', [\App\Http\Controllers\SampleTokenAuthController::class, 'auth']);
+Route::get('/sample/token/info', [\App\Http\Controllers\SampleTokenAuthController::class, 'userInfo'])->middleware('auth');

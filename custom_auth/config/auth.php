@@ -37,8 +37,10 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+            // 'driver' => 'session',
+            // 'provider' => 'users',
+            'driver' => 'sample_token',
+            'provider' => 'sample_token_users',
         ],
 
         'api' => [
@@ -46,6 +48,11 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+
+        'sample' => [
+            'driver' => 'sample_token',
+            'provider' => 'sample_token_users',
+        ]
     ],
 
     /*
@@ -69,6 +76,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'sample_token_users' => [
+            'driver' => 'sample_token_user'
         ],
 
         // 'users' => [
