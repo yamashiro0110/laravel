@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Auth\TokenUser;
+use App\Http\Middleware\Authenticate;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +13,12 @@ use function PHPUnit\Framework\isNull;
 
 class SampleTokenAuthController extends Controller
 {
+    private function toResponse(TokenUser $user) {
+        return array(
+            'id' => $user->getAuthIdentifierName(),
+            'token' => $user->getAuthIdentifier(),
+        );
+    }
 
     public function auth(Request $request)
     {
@@ -23,7 +31,7 @@ class SampleTokenAuthController extends Controller
 
         if ($user) {
             Log::debug("認証に成功", ['user', $user->getAuthIdentifier()]);
-            return ['id', $user->getAuthIdentifier()];
+            return $this->toResponse($user);
         }
 
         throw new Exception('Error auth');
@@ -32,16 +40,13 @@ class SampleTokenAuthController extends Controller
     public function userInfo(Request $request)
     {
         Log::debug("userInfo 開始", ['request', $request]);
-        // $user = Auth::guard('sample')->user();
         $user = Auth::user();
 
         if (is_null($user)) {
             throw new Exception('認証されていないユーザー');
         }
 
-        return array(
-            'id' => $user->getAuthIdentifier()
-        );
+        return $this->toResponse($user);
     }
 
 }

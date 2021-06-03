@@ -7,20 +7,20 @@ use Illuminate\Support\Str;
 
 class TokenUser implements Authenticatable
 {
-    // private $id;
+    private $id;
     private $token;
     private $rememberMe;
 
-    public function __construct($token)
+    public function __construct($token, $id = null)
     {
-        // $this->id = $id;
+        $this->id = $id;
         $this->token = $token;
         $this->rememberMe = Str::random(10);
     }
 
     public function getAuthIdentifierName()
     {
-        return $this->token;
+        return $this->id;
     }
 
     public function getAuthIdentifier()
