@@ -34,10 +34,10 @@ class TokenUserGuard extends SessionGuard
             $user = $this->getProvider()->retrieveById($token);
             $this->login($user, true);
             Log::debug("ユーザーのログイン成功", ['user', $user]);
-        } else {
-            Log::debug("Tokenの指定無し", ['request', $this->getRequest()]);
+            return $this->getUser();
         }
 
+        Log::debug("Tokenの指定無し", ['request', $this->getRequest()]);
         return $this->getUser();
     }
 
