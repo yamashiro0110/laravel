@@ -31,7 +31,7 @@ class TokenUserGuard extends SessionGuard
         Log::debug("リクエストからTokenを取得", ['token', $token]);
 
         if ($token) {
-            $user = $this->getProvider()->retrieveById($token);
+            $user = $this->getProvider()->retrieveByCredentials(array($token));
             $this->login($user, true);
             Log::debug("ユーザーのログイン成功", ['user', $user]);
             return $this->getUser();
