@@ -18,7 +18,9 @@ class TokenUserProvider implements UserProvider
     {
         Log::debug("Tokenチェック開始", ['token', $token]);
 
-        if ($token === '123' || $token === 'abc') {
+        $enableTokens = array('123','abc','xyz');
+
+        if (in_array($token, $enableTokens)) {
             return new TokenUser($token);
         }
 
