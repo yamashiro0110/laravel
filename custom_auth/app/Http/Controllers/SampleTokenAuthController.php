@@ -14,10 +14,11 @@ class SampleTokenAuthController extends Controller
 
     public function auth(Request $request)
     {
+        Log::debug("auth 開始", ['request', $request]);
+
         Auth::logout();
         Log::debug("ログアウト実行");
 
-        Log::debug("auth 開始", ['request', $request]);
         $user = Auth::user();
 
         if ($user) {
